@@ -1,0 +1,2 @@
+include ':app', ':app', ':libraries', ':camera_roi'
+include ':libraries:opencv'
