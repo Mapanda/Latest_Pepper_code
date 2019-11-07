@@ -123,9 +123,6 @@ private static MediaPlayer playerStart;
         }
     }
 
-/*    private void displayLine(final String text) {
-        runOnUiThread(() -> conversationView.setText(text));
-    }*/
     public static void listenToFunctionality(QiContext qiContext){
         // Create the PhraseSet 1.
         Say say = SayBuilder.with(qiContext)
