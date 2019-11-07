@@ -144,38 +144,7 @@ public class MainActivity1 extends RobotActivity implements RobotLifecycleCallba
         backgroundExtractionButton.setEnabled(true);
         gestureExtractionButton = findViewById(R.id.ROI);
         gestureExtractionButton.setEnabled(false);
-       /* backgroundExtractionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playerFlash.start();
-                Log.i("Masking : ", "Background capture button Click Started.. ");
-                isBackGroundCaptured = true;
-                getSavedImage(backgroundSubtractionFrame, "backgroundCaptured.jpg");
-                Log.i("Masking : ", "Background capture button Click Finished.. ");
-                backgroundExtractionButton.setEnabled(false);
-                gestureExtractionButton.setEnabled(true);
-
-            }
-
-        });
-        //for the gesture extraction
-        gestureExtractionButton = findViewById(R.id.ROI);
-        gestureExtractionButton.setEnabled(false);
-        gestureExtractionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playerStart.start();
-                isGestureButtonClicked = true;
-                Log.i("Masking : ", "Gesture capture button Click Started.. ");
-                backgroundExtractionButton.setEnabled(true);
-                gestureExtractionButton.setEnabled(false);
-                getSavedImage(rgbaBilateralFrame, "gesturebutton.jpg");
-                Bitmap maskedBitmap = matToBitmapConversion(rgbaBilateralFrame);
-                String imagePredicted = classifyImage(maskedBitmap);
-                isGestureDetected=true;
-            }
-
-        });*/
+      
     }
 
     public void onRobotFocusGained(QiContext qiContext) {
@@ -229,10 +198,7 @@ public class MainActivity1 extends RobotActivity implements RobotLifecycleCallba
         rgbaBilateralFrame = rgbaFrame.clone();
         Imgproc.bilateralFilter(rgbaFrame,rgbaBilateralFrame,smoothingFactor,sigmaColor,sigmaSpace);
         rgba= createRectangleOnFrame(rgbaBilateralFrame);
-        /*getBackgroundCaptured(rgbaFrame);
-        if(isGestureButtonClicked) {
-            extractGesture(backgroundSubtractionFrame);
-        }*/
+    
         backgroundExtractionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -258,14 +224,6 @@ public class MainActivity1 extends RobotActivity implements RobotLifecycleCallba
             @Override
             public void onClick(View v) {
                 String message="";
-            /*    if (mToastGesture != null && mToastGesture.getView().isShown()){
-                    mToastGesture.show();
-                    mToastGesture.cancel(); // Close the toast if it is already open
-                    message = "Please place a hand with a gesture 'L','Peace','Fist','Palm','Okay'";
-                    int duration = Toast.LENGTH_LONG;
-                    mToastGesture = Toast.makeText(getApplicationContext(), message, duration);
-                    mToastGesture.show();
-            }*/
                 message = "Please place a hand with a gesture 'L','Peace','Fist','Palm','Okay'";
                 int duration = Toast.LENGTH_LONG;
                 mToastGesture = Toast.makeText(getApplicationContext(), message, duration);
@@ -295,19 +253,7 @@ public class MainActivity1 extends RobotActivity implements RobotLifecycleCallba
                     extractGesture(backgroundSubtractionFrame);
                     Bitmap maskedBitmap = matToBitmapConversion(rgbaBilateralFrame);
                     actionOnDetectedGesture("Peace");
-                    // classifyImage(maskedBitmap); bestRecognition.getTitle()
-                   /* bestRecognition.setTitle("L");
-                    if(bestRecognition!= null && bestRecognition.getTitle()!=null ) {
-
-                        predictedGesture = predictedGesture + "'" + "L" + "'";
-                        putText(rgba, predictedGesture);
-                        isGestureButtonClicked = false;
-                        //bestRecognition.getTitle()
-                        actionOnDetectedGesture("L");
-                    }else{
-                        putText(rgba, predictedGesture);
-                    }*/
-                }
+                 }
             }
         }.start();
 
@@ -329,12 +275,6 @@ public class MainActivity1 extends RobotActivity implements RobotLifecycleCallba
         }else{
             Log.i("Remove Background" ,"Frame is empty to predict the gesture. Try again");
         }
-        //no idea whether this is required
-      /*  try {
-            Thread.sleep(100);
-        } catch (InterruptedException ex) {
-        }
-*/
     }
 
     private void getSavedImage(Mat clippedMat,String name){
