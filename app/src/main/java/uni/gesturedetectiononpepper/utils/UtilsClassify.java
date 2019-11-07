@@ -20,11 +20,7 @@ public class UtilsClassify {
      */
     public static Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight, boolean recycle) {
         int width = bm.getWidth();
-        int height =
-
-
-
-                bm.getHeight();
+        int height = bm.getHeight();
         float scaleWidth = ((float) newWidth) / width;
         float scaleHeight = ((float) newHeight) / height;
         // CREATE A MATRIX FOR THE MANIPULATION
