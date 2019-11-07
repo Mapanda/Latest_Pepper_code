@@ -78,8 +78,6 @@ public class ImageClassifier implements Classifier {
         c.inputName = inputName;
         c.outputName = outputName;
 
-        // Read the label names into memory.
-        // TODO(andrewharp): make this handle non-assets.
         String actualFilename = labelFilename.split("file:///android_asset/")[1];
         Log.i("", "Reading labels from: " + actualFilename);
         BufferedReader br = null;
@@ -98,7 +96,6 @@ public class ImageClassifier implements Classifier {
 
         // The shape of the output is [N, NUM_CLASSES], where N is the batch size.
         final Operation operation = c.inferenceInterface.graphOperation(outputName);
-        //TODO: check this why it is used
         final int numClasses = (int) operation.output(0).shape().size(1);
         Log.i("", "Read " + c.labels.size() + " labels, output layer size is " + numClasses);
 
@@ -126,61 +123,7 @@ public class ImageClassifier implements Classifier {
      */
     @Override
     public List<Recognition> recognizeImage(final Bitmap bitmap) {
-      /*  // Log this method so that it can be analyzed with systrace.
-        Trace.beginSection("recognizeImage");
-
-        Trace.beginSection("preprocessBitmap");
-        // Preprocess the image data from 0-255 int to normalized float based
-        // on the provided parameters.
-        bitmap.getPixels(intValues, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
-        for (int i = 0; i < intValues.length; ++i) {
-            final int val = intValues[i];
-            floatValues[i * 3 + 0] = (((val >> 16) & 0xFF) - imageMean) / imageStd;
-            floatValues[i * 3 + 1] = (((val >> 8) & 0xFF) - imageMean) / imageStd;
-            floatValues[i * 3 + 2] = ((val & 0xFF) - imageMean) / imageStd;
-        }
-        Trace.endSection();
-
-        // Copy the input data into TensorFlow.
-        Trace.beginSection("feed");
-        inferenceInterface.feed(inputName, floatValues, 1, inputSize, inputSize, 3);
-        Trace.endSection();
-
-        // Run the inference call.
-        Trace.beginSection("run");
-        inferenceInterface.run(outputNames, logStats);
-        Trace.endSection();
-
-        // Copy the output Tensor back into the output array.
-        Trace.beginSection("fetch");
-        inferenceInterface.fetch(outputName, outputs);
-        Trace.endSection();
-
-        // Find the best classifications.
-        PriorityQueue<Recognition> pq =
-                new PriorityQueue<Recognition>(
-                        3,
-                        new Comparator<Recognition>() {
-                            @Override
-                            public int compare(Recognition lhs, Recognition rhs) {
-                                // Intentionally reversed to put high confidence at the head of the queue.
-                                return Float.compare(rhs.getConfidence(), lhs.getConfidence());
-                            }
-                        });
-        for (int i = 0; i < outputs.length; ++i) {
-            if (outputs[i] > THRESHOLD) {
-                pq.add(new Recognition("" + i, labels.size() > i ? labels.get(i) : "unknown", outputs[i]));
-            }
-        }
-        final ArrayList<Recognition> recognitions = new ArrayList<Recognition>();
-        int recognitionsSize = Math.min(pq.size(), MAX_RESULTS);
-        for (int i = 0; i < recognitionsSize; ++i) {
-            recognitions.add(pq.poll());
-            Log.i("Recognition Image: ", recognitions.toString());
-        }
-        Trace.endSection(); // "recognizeImage"
-        return recognitions;*/
-        // Log this method so that it can be analyzed with systrace.
+          // Log this method so that it can be analyzed with systrace.
         Trace.beginSection("recognizeImage");
 
         Trace.beginSection("preprocessBitmap");
@@ -231,7 +174,7 @@ public class ImageClassifier implements Classifier {
         for (int i = 0; i < recognitionsSize; ++i) {
             recognitions.add(pq.poll());
         }
-        Trace.endSection(); // "recognizeImage"
+        Trace.endSection(); 
         return recognitions;
     }
 
