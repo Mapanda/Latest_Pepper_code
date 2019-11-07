@@ -69,11 +69,6 @@ import static uni.gesturedetectiononpepper.FunctionalityAfterGesture.createAnima
 import static uni.gesturedetectiononpepper.FunctionalityAfterGesture.getTouchSensorsOnOkay;
 import static uni.gesturedetectiononpepper.FunctionalityAfterGesture.goToActionOnLAndPalm;
 import static uni.gesturedetectiononpepper.FunctionalityAfterGesture.listenToFunctionality;
-
-//import android.text.method.Touch;
-//qisdktutorials.ui.conversation.ConversationItemType;
-;
-
 public class MainActivity extends RobotActivity implements RobotLifecycleCallbacks, CameraBridgeViewBase.CvCameraViewListener2 {
     private CameraBridgeViewBase mOpenCvCameraView;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -359,12 +354,6 @@ public class MainActivity extends RobotActivity implements RobotLifecycleCallbac
         }else{
             Log.i("Remove Background" ,"Frame is empty to predict the gesture. Try again");
         }
-    /*    //no idea whether this is required
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException ex) {
-        }*/
-
     }
 
     private void getSavedImage(Mat clippedMat,String name){
